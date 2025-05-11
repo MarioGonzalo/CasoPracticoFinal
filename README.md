@@ -1,8 +1,8 @@
 # CasoPracticoFinal
 
-## 1. Diseño y Modelado de la Arquitectura de Comunicación
+## 1. Diseño y Modelado de la Arquitectura de Comunicación 🟨
 
-### Análisis de Modelos
+### Análisis de Modelos 🟩
 
 **Modelo OSI (Open Systems Interconnection)**
 
@@ -27,7 +27,7 @@
 
 ---
 
-### Integración de Modelos para los Servicios
+### Integración de Modelos para los Servicios🟩
 
 #### A. Servicios Gubernamentales
 
@@ -57,13 +57,13 @@
 - **Red:** CDN local, QoS.
 - **Seguridad:** TLS, DNSSEC, WAF (firewall de aplicaciones).
 
-### Diseño lógico y segmentación
+### Diseño lógico y segmentación 🟥
 
 *Insertar capturas cuando esté el cisco y el drawio y tal *
 
-## 2. Capa Física – Cálculos y Selección de Tecnologías
+## 2. Capa Física – Cálculos y Selección de Tecnologías 🟨
 
-### Cálculo de la Capacidad de los Enlaces:
+### Cálculo de la Capacidad de los Enlaces: 🟥
 
 Para calcular la capacidad necesaria en los enlaces cableados e inalámbricos del campus emplearemos la fórmula de Shannon:
 
@@ -84,7 +84,7 @@ $$𝑆𝑁𝑅_{lineal} = 10 𝑙𝑜𝑔_{10}(𝑆𝑁𝑅) = 10^{\frac{SNR}{10
 
 # Hay que terminar esto
 
-### Selección de Técnicas de Modulación:
+### Selección de Técnicas de Modulación: 🟩
 
 | Modulación  | Bits por Símbolo | Eficiencia Espectral | Robustez ante Interferencias | Complejidad Computacional |
 |-------------|------------------|-----------------------|------------------------------|----------------------------|
@@ -108,13 +108,13 @@ $$𝑆𝑁𝑅_{lineal} = 10 𝑙𝑜𝑔_{10}(𝑆𝑁𝑅) = 10^{\frac{SNR}{10
 - Para los enlaces inalámbricos emplearemos QPSK o 16-QAM en los mejores casos ya que los canales inalámbricos, a lo contrario que los enlaces cableados, tiene más ruido e interferencias por lo que es necesario sacrificar un poco de eficiencia por robustez ante interferencias.
 
 
-## 3. Capa de Red – Direccionamiento, Subneteo y Enrutamiento
+## 3. Capa de Red – Direccionamiento, Subneteo y Enrutamiento 🟨
 
-### Diseño del Esquema de Direccionamiento IP:
+### Diseño del Esquema de Direccionamiento IP: 🟥
 
 # Esto para cuando el cisco esté terminado y tal mejor
 
-### Enrutamiento y Rutas Óptimas:
+### Enrutamiento y Rutas Óptimas: 🟩
 
 Para emplear el algoritmo de Dijkstra para calcular rutas óptimas entre los diferentes egmentos asumiremos que cada segmento es un nodo con un peso en un grafo ponderado siendo:
 
@@ -141,7 +141,7 @@ En cuanto al algoritmo de inundación este consiste en que en vez de distribuir 
 
 En caso de que falle algún enlace o nodo se empeará este método para aseegurar la entrega de mensajes críticos.
 
-## 4. Capa de Transporte – Selección de Protocolos y Cálculo del Tamaño de Ventana
+## 4. Capa de Transporte – Selección de Protocolos y Cálculo del Tamaño de Ventana 🟩
 
 ### Selección de Protocolos de Transporte:
 
@@ -233,6 +233,10 @@ $ \frac{62{,}500 \, \text{bytes}}{1{,}500 \, \text{bytes/segmento}} \approx 41.6
 - Con un ancho de banda de 10 Mbps y un RTT de 50 ms, el tamaño óptimo de ventana es de 62,500 bytes.
 - Esto permite tener hasta 41 segmentos MSS en tránsito de forma eficiente.
 - Si se necesita transmitir más datos en paralelo, puede habilitarse **TCP Window Scaling** para superar el límite de 65,535 bytes de ventana estándar.
+
+## 5. Capa de Aplicación – Servicios, Multiplexación y Multimedia
+
+
 
 
 
