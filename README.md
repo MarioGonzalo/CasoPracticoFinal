@@ -61,7 +61,7 @@
 
 *Insertar capturas cuando esté el cisco y el drawio y tal *
 
-## Capa Física – Cálculos y Selección de Tecnologías
+## 2. Capa Física – Cálculos y Selección de Tecnologías
 
 ### Cálculo de la Capacidad de los Enlaces:
 
@@ -96,22 +96,50 @@ $$𝑆𝑁𝑅_{lineal} = 10 𝑙𝑜𝑔_{10}(𝑆𝑁𝑅) = 10^{\frac{SNR}{10
 
 ---
 
-#### Recomendación para Enlaces **Cableados**
+#### Modulación para Enlaces **Cableados**
 
 - Para los enlaces cableados emplearemos 16-QAM o 64-QAM ya que los enlaces cableados ofrecen una baja atenuación e inteferencia por lo que no se necesita demasiada robustez y se puede priorizar la eficiencia sin temer mucho a las interferencias.
 
 
 ---
 
-#### Recomendación para Enlaces **Inalámbricos**
+#### Modulación para Enlaces **Inalámbricos**
 
 - Para los enlaces inalámbricos emplearemos QPSK o 16-QAM en los mejores casos ya que los canales inalámbricos, a lo contrario que los enlaces cableados, tiene más ruido e interferencias por lo que es necesario sacrificar un poco de eficiencia por robustez ante interferencias.
 
 
+## 3. Capa de Red – Direccionamiento, Subneteo y Enrutamiento
 
+### Diseño del Esquema de Direccionamiento IP:
 
+# Esto para cuando el cisco esté terminado y tal mejor
 
+### Enrutamiento y Rutas Óptimas:
 
+Para emplear el algoritmo de Dijkstra para calcular rutas óptimas entre los diferentes egmentos asumiremos que cada segmento es un nodo con un peso en un grafo ponderado siendo:
+
+- **A:** Centro de Control Principal  
+- **B:** Zona de Seguridad Pública  
+- **C:** Centro de Emergencias  
+- **D:** Oficina Administrativa  
+- **E:** Nodo de Monitoreo Ambiental
+
+Con estos pesos:
+
+| Enlace | Costo |
+|--------|-------|
+| A - B  | 2     |
+| A - C  | 5     |
+| B - C  | 1     |
+| B - D  | 4     |
+| C - E  | 2     |
+| D - E  | 3     |
+
+El algoritmo de Dijkstra calcula la ruta más eficiente desde un nodo origen hacia los demás, acumulando los costos más bajos posibles a medida que explora el grafo. No se limita al primer salto más barato, sino que evalúa todas las rutas posibles y actualiza los caminos si encuentra uno de menor costo acumulado.
+
+En cuanto al algoritmo de inundación este consiste en que en vez de distribuir el paquete de un nodo origen a un nodo destino buscando y empleando la ruta más óptima este distribuye el paquete por todos los nodos posibles exceptuando por el que se mandó. Para que no haya bucles o errores similares a cada paquete se le atribuye un número limitados de saltos o, dicho de otra manera, de transiciones entre nodos.
+
+En caso de que falle algún enlace o nodo se empeará este método para aseegurar la entrega de mensajes críticos.
 
 
 
