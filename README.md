@@ -141,6 +141,99 @@ En cuanto al algoritmo de inundación este consiste en que en vez de distribuir 
 
 En caso de que falle algún enlace o nodo se empeará este método para aseegurar la entrega de mensajes críticos.
 
+## 4. Capa de Transporte – Selección de Protocolos y Cálculo del Tamaño de Ventana
+
+### Selección de Protocolos de Transporte:
+
+#### Protocolo TCP (Transmission Control Protocol)
+
+El protocolo TCP se empleará para procesos que requieran una alta fiabilidad ya que es mucho más seguro que el UDP porque se asgura de mantener una conexión con el receptor.
+
+**Aplicaciones típicas:**
+- Transferencia de archivos (FTP/SFTP)
+- Acceso y actualización de bases de datos gubernamentales
+- Servicios administrativos web seguros
+- Comunicaciones entre servidores críticos
+
+**Justificación:**
+- TCP utiliza mecanismos como el **control de congestión**, **retransmisión automática**, **número de secuencia**, y **ventanas deslizantes** para garantizar la entrega confiable.
+- Se prioriza la integridad sobre la velocidad.
+
+---
+
+#### ⚡ Protocolo UDP (User Datagram Protocol)
+
+Se usará en servicios a tiempo real ya que UDP es notablemente más rápido que el TCP siendo perfecto para estos tipos de procesos.
+
+**Aplicaciones típicas:**
+- Streaming en tiempo real de cámaras de vigilancia
+- Alertas de tráfico o emergencias (broadcast/multicast)
+- Comunicaciones IoT de baja latencia (CoAP sobre UDP)
+
+**Justificación:**
+- UDP no espera confirmaciones ni realiza retransmisiones, lo que **minimiza la latencia**.
+- Permite el envío de datagramas livianos sin sobrecarga adicional, ideal para aplicaciones con tolerancia a pérdidas.
+
+### Cálculo del Tamaño de Ventana en TCP:
+
+### Cálculo del Tamaño de Ventana en TCP
+
+El **tamaño de la ventana TCP** determina cuántos datos pueden estar en tránsito sin haber sido confirmados (ACK). Este parámetro es clave para aprovechar el ancho de banda disponible.
+
+#### Fórmula general:
+
+$ \text{Ventana óptima} = \text{Ancho de banda} \times \text{RTT} $
+
+---
+
+### Ejemplo práctico
+
+Supuestos:
+
+- Ancho de banda = 10 Mbps (megabits por segundo)
+- RTT (Round Trip Time) = 50 ms
+- MSS (Maximum Segment Size) = 1,500 bytes
+
+---
+
+### Paso 1: Convertir unidades
+
+**Ancho de banda:**
+
+$ 10 \, \text{Mbps} = 10 \times 10^6 \, \text{bps} = 10{,}000{,}000 \, \text{bits/segundo} $
+
+**RTT:**
+
+$ 50 \, \text{ms} = 50 \div 1000 = 0.05 \, \text{segundos} $
+
+---
+
+### Paso 2: Calcular tamaño de ventana en bits
+
+$ \text{Ventana óptima} = 10{,}000{,}000 \, \text{bps} \times 0.05 \, \text{s} = 500{,}000 \, \text{bits} $
+
+---
+
+### Paso 3: Convertir a bytes
+
+$ 500{,}000 \div 8 = 62{,}500 \, \text{bytes} $
+
+---
+
+### Paso 4: Calcular número de segmentos MSS
+
+$ \frac{62{,}500 \, \text{bytes}}{1{,}500 \, \text{bytes/segmento}} \approx 41.67 $
+
+**Resultado:** Aproximadamente 41 segmentos MSS pueden estar en tránsito simultáneamente sin recibir confirmaciones.
+
+---
+
+### Conclusión
+
+- Con un ancho de banda de 10 Mbps y un RTT de 50 ms, el tamaño óptimo de ventana es de 62,500 bytes.
+- Esto permite tener hasta 41 segmentos MSS en tránsito de forma eficiente.
+- Si se necesita transmitir más datos en paralelo, puede habilitarse **TCP Window Scaling** para superar el límite de 65,535 bytes de ventana estándar.
+
 
 
 
