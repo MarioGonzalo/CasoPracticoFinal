@@ -2,6 +2,13 @@ Link al repositorio: https://github.com/MarioGonzalo/CasoPracticoFinal.git
 
 # CasoPracticoFinal
 
+# Indice
+
+- [Paso 1](#1-diseño-y-modelado-de-la-arquitectura-de-comunicación-)
+  - [Análisis de Modelos](#análisis-de-modelos-)
+    - [Integración de Modelos para los Servicios](#integración-de-modelos-para-los-servicios)
+  - [Diseño lógico y segmentación](#diseño-lógico-y-segmentación-)
+
 ## 1. Diseño y Modelado de la Arquitectura de Comunicación 🟨
 
 ### Análisis de Modelos 🟩
