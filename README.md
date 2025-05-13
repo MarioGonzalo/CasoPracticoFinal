@@ -236,6 +236,38 @@ $ \frac{62{,}500 \, \text{bytes}}{1{,}500 \, \text{bytes/segmento}} \approx 41.6
 
 ## 5. Capa de Aplicación – Servicios, Multiplexación y Multimedia
 
+### Servicios Multimedia
+
+Dependiendo de qué se quiera retransmitir y sus necesidades se emplearán dos procesos:
+
+##### 1. UDP Streaming (Low Latency)
+
+- Utilizado para transmisiones de **baja latencia**, como vigilancia en tiempo real.
+- Se emplea junto con protocolos como **RTP (Real-Time Protocol)** sobre UDP.
+- No hay retransmisión de paquetes perdidos, lo cual reduce el retardo.
+- Recomendado para:
+  - Cámaras de vigilancia
+  - Alertas visuales en tiempo real
+
+##### 2. Adaptive HTTP Streaming – DASH (Dynamic Adaptive Streaming over HTTP)
+
+- Divide el contenido en pequeños segmentos (2–10 segundos), disponibles en diferentes calidades.
+- El cliente selecciona dinámicamente la calidad más adecuada según las condiciones actuales de red.
+- Utiliza TCP como protocolo subyacente, lo que proporciona robustez y compatibilidad con firewalls.
+- Recomendado para:
+  - Streaming de eventos públicos
+  - Pantallas informativas con contenido multimedia
+
+---
+
+#### Adaptación de Calidad en Tiempo Real
+
+El sistema se adapta automáticamente al ancho de banda disponible para garantizar una reproducción continua:
+
+- En **DASH**, el reproductor mide el throughput (rendimiento de red) entre segmentos y ajusta la calidad del siguiente segmento.
+- En sistemas UDP con codecs como **H.264/H.265**, se puede usar:
+  - **FEC (Forward Error Correction)** para compensar pérdidas.
+  - **Escalabilidad** en códecs (como **SVC - Scalable Video Coding**) que permite reducir la calidad sin re-encodear.
 
 
 
