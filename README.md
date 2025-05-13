@@ -2,13 +2,6 @@ Link al repositorio: https://github.com/MarioGonzalo/CasoPracticoFinal.git
 
 # CasoPracticoFinal
 
-# Indice
-
-- [Paso 1](#1-diseño-y-modelado-de-la-arquitectura-de-comunicación-)
-  - [Análisis de Modelos](#análisis-de-modelos-)
-    - [Integración de Modelos para los Servicios](#integración-de-modelos-para-los-servicios)
-  - [Diseño lógico y segmentación](#diseño-lógico-y-segmentación-)
-
 ## 1. Diseño y Modelado de la Arquitectura de Comunicación
 
 ### Análisis de Modelos
@@ -121,7 +114,6 @@ $ \log_2(101) \approx \frac{\log_{10}(101)}{\log_{10}(2)} \approx \frac{2.004}{0
 
 $ C = 300 \times 10^6 \times 6.6582 \approx 1.997 \times 10^9 \, \text{bps} $
 
-# Hay que terminar esto
 
 ### Selección de Técnicas de Modulación:
 
@@ -149,7 +141,43 @@ $ C = 300 \times 10^6 \times 6.6582 \approx 1.997 \times 10^9 \, \text{bps} $
 
 ## 3. Capa de Red – Direccionamiento, Subneteo y Enrutamiento
 
-### Diseño del Esquema de Direccionamiento IP: 🟥
+### Diseño del Esquema de Direccionamiento IP:
+
+### Segmentación por Funciones
+
+| Segmento                  | Subred asignada     | Descripción                                      |
+|---------------------------|---------------------|--------------------------------------------------|
+| Zona Gubernamental        | 192.168.0.0/24       | Oficinas administrativas, portales internos      |
+| Seguridad Pública         | 192.168.10.0/24       | Cámaras, patrullas, centros de monitoreo         |
+| Transporte e IoT Ambiental| 192.168.20.0/24       | Semáforos, sensores, estaciones meteorológicas    |
+
+
+---
+
+### Cálculos por Segmento (/24 = 255.255.255.0)
+
+#### 1. Zona Gubernamental – 192.168.0.0/24
+- **Dirección de red:** 192.168.0.0  
+- **Dirección de broadcast:** 192.168.0.255  
+- **Rango de hosts válidos:** 192.168.0.1 – 192.168.0.254
+
+#### 2. Seguridad Pública – 192.168.10.0/24
+- **Dirección de red:** 192.168.10.0  
+- **Dirección de broadcast:** 192.168.10.255  
+- **Rango de hosts válidos:** 192.168.10.1 – 192.168.10.254
+
+#### 3. Transporte y Monitoreo Ambiental – 192.168.20.0/24
+- **Dirección de red:** 192.168.20.0  
+- **Dirección de broadcast:** 192.168.20.255  
+- **Rango de hosts válidos:** 192.168.20.1 – 192.168.20.254
+
+
+---
+
+### Justificación del Diseño
+
+- El uso de subredes /24 permite una administración simple y eficiente.
+- Cada segmento puede ser gestionado de forma aislada, lo que mejora la seguridad y facilita el control de tráfico.
 
 
 
@@ -180,7 +208,7 @@ En cuanto al algoritmo de inundación este consiste en que en vez de distribuir 
 
 En caso de que falle algún enlace o nodo se empeará este método para aseegurar la entrega de mensajes críticos.
 
-## 4. Capa de Transporte – Selección de Protocolos y Cálculo del Tamaño de Ventana 🟩
+## 4. Capa de Transporte – Selección de Protocolos y Cálculo del Tamaño de Ventana
 
 ### Selección de Protocolos de Transporte:
 
@@ -275,6 +303,62 @@ $ \frac{62{,}500 \, \text{bytes}}{1{,}500 \, \text{bytes/segmento}} \approx 41.6
 
 ## 5. Capa de Aplicación – Servicios, Multiplexación y Multimedia
 
+### Implementación de Servicios y Resolución de Nombres:
+
+### Implementación de Servicios y Resolución de Nombres
+
+La red de la ciudad inteligente contará con servidores dedicados para DNS, FTP/SFTP y HTTP/HTTPS, esenciales para ofrecer servicios internos, acceso ciudadano y comunicación segura.
+
+---
+
+### 1. Configuración de Servidores
+
+#### a. Servidor DNS
+
+- Se encargará de traducir nombres de dominio internos a direcciones IP.
+- Utiliza zonas locales para gestionar dispositivos, servicios y recursos internos.
+- Debe estar configurado con registros A, AAAA, CNAME y PTR según sea necesario.
+- Debe operar en un entorno seguro, aislado de la resolución DNS externa, si es posible.
+
+#### b. Servidor FTP/SFTP
+
+- Se utilizará para transferencia de archivos entre departamentos y sistemas.
+- SFTP será el protocolo preferido por seguridad (cifrado de datos y autenticación).
+- La configuración debe restringir accesos no autorizados y registrar todas las transferencias.
+
+#### c. Servidor HTTP/HTTPS
+
+- Proveerá acceso a portales web, paneles informativos y contenido multimedia.
+- Se requerirá HTTPS para garantizar la confidencialidad y autenticidad de la comunicación.
+- El servidor debe soportar múltiples sitios y asegurar su disponibilidad.
+
+---
+
+### 2. Proceso de Resolución de Nombres
+
+- Cuando un cliente requiere acceder a un servicio por nombre, realiza una consulta DNS.
+- El servidor DNS local responde con la dirección IP correspondiente al nombre solicitado.
+- Una vez obtenida la IP, el cliente establece la conexión con el servicio deseado.
+
+---
+
+### 3. Multiplexación de Solicitudes
+
+Los servidores deben ser capaces de atender múltiples solicitudes simultáneas mediante:
+
+#### a. Multiplexación por Puerto
+
+- Cada servicio opera en un puerto específico, permitiendo coexistencia en una misma máquina.
+
+#### b. Multiplexación por Hilo o Proceso
+
+- Los servidores gestionan múltiples conexiones simultáneas mediante procesos o hilos independientes.
+
+#### c. Multiplexación por Dominio
+
+- Un servidor web puede manejar múltiples sitios o servicios diferenciados por nombre de dominio.
+
+
 ### Servicios Multimedia
 
 Dependiendo de qué se quiera retransmitir y sus necesidades se emplearán dos procesos:
@@ -308,6 +392,100 @@ El sistema se adapta automáticamente al ancho de banda disponible para garantiz
   - **FEC (Forward Error Correction)** para compensar pérdidas.
   - **Escalabilidad** en códecs (como **SVC - Scalable Video Coding**) que permite reducir la calidad sin re-encodear.
 
+## 6. Seguridad – Estrategias y Configuración
+
+### Políticas y Medidas de Seguridad:
+
+### Paso 6: Seguridad – Estrategias y Configuración
+
+Una infraestructura crítica como la de una ciudad inteligente requiere una política de seguridad integral que combine aislamiento de tráfico, autenticación fuerte, cifrado de extremo a extremo y control de accesos en cada nivel.
+
+---
+
+#### 1. Políticas y Medidas de Seguridad
+
+##### a. Uso de VPN (Red Privada Virtual)
+
+- Se establecerán túneles VPN para comunicar de forma segura segmentos críticos (por ejemplo, redes de emergencia con oficinas centrales).
+- El tráfico entre estos segmentos será cifrado y autenticado.
+- La VPN deberá utilizar cifrado fuerte (como AES) y protocolos robustos (como IPsec o WireGuard).
+- La autenticación puede basarse en certificados digitales o credenciales seguras.
+
+##### b. Firewalls
+
+- Se ubicarán firewalls en los límites de cada segmento de red.
+- Filtrarán tráfico entrante y saliente según políticas definidas por IP, puerto y protocolo.
+- Deben registrar eventos sospechosos y permitir la creación de listas negras dinámicas.
+- La política por defecto será "denegar todo" y permitir solo tráfico explícitamente autorizado.
+
+##### c. Listas de Control de Acceso (ACLs)
+
+- Se aplicarán en routers y switches de capa 3 para restringir el acceso entre subredes.
+- Las ACLs controlarán qué direcciones IP o rangos pueden comunicarse y con qué servicios.
+- Se aplicarán tanto a tráfico entrante como saliente para minimizar posibles vectores de ataque.
+- Las reglas deben ordenarse desde las más específicas a las más generales.
+
+---
+
+#### 2. Configuración General
+
+##### a. Segmentación de la Red
+
+- Cada función crítica de la ciudad tendrá su propia subred aislada.
+- La segmentación limitará el impacto de ataques laterales y facilitará la aplicación de políticas de seguridad específicas.
+
+##### b. Monitoreo y Registro
+
+- Todos los dispositivos de red (firewalls, routers, servidores) deben mantener logs.
+- Se debe implementar un sistema centralizado de monitoreo y alertas (SIEM).
+- El análisis de tráfico y patrones anómalos ayudará a detectar intrusiones o accesos no autorizados.
+
+##### c. Actualizaciones y Mantenimiento
+
+- Todos los dispositivos y servicios deben estar actualizados con parches de seguridad.
+- Se implementará un ciclo de revisión regular de reglas de firewall, ACLs y certificados.
+
+### Cifrado y Autenticación:
+
+### Cifrado y Autenticación
+
+En una infraestructura crítica, es indispensable aplicar mecanismos de cifrado y autenticación robustos para garantizar la confidencialidad, integridad y autenticidad de las comunicaciones y datos en tránsito.
+
+---
+
+### 1. Cifrado de Comunicaciones (TLS/SSL)
+
+- **TLS (Transport Layer Security)** se utilizará para cifrar todas las comunicaciones entre clientes y servidores (web, correo, VPN).
+- TLS reemplaza al antiguo SSL y debe implementarse en su versión más actualizada (TLS 1.3).
+- Los certificados digitales serán generados por una CA (autoridad certificadora) interna o confiable.
+- Los servicios HTTP, FTP y correo operarán sobre TLS para prevenir la interceptación o manipulación de datos.
+- La validación del certificado garantiza la autenticidad del servidor.
+
+---
+
+### 2. Autenticación y Cifrado con RSA
+
+- **RSA (Rivest-Shamir-Adleman)** se utilizará para establecer canales seguros de comunicación e intercambio de claves.
+- El proceso consiste en:
+  - Generar un par de claves pública/privada.
+  - Usar la clave pública para cifrar datos (como una clave de sesión).
+  - El receptor usa su clave privada para descifrar el mensaje.
+
+Este esquema permite el establecimiento de una clave simétrica (para TLS, por ejemplo) de forma segura mediante un canal inseguro.
+
+- Las claves deben ser de al menos 2048 bits para garantizar un nivel de seguridad adecuado.
+- Las claves privadas deben almacenarse de forma segura, idealmente con protección por contraseña o en módulos de hardware (HSM).
+
+---
+
+### 3. Protección de Resolución de Nombres (DNSSEC)
+
+- **DNSSEC (Domain Name System Security Extensions)** se implementará para proteger las consultas DNS frente a ataques como DNS Spoofing o Cache Poisoning.
+- Funciona mediante:
+  - Firmas digitales asociadas a cada registro DNS.
+  - El servidor DNS responde con los datos solicitados y una firma que puede verificarse usando claves públicas.
+- Solo los servidores con la clave correspondiente podrán firmar registros válidos.
+- Los clientes (resolvers) deben estar configurados para validar firmas DNSSEC y descartar respuestas no verificadas.
 
 
 
