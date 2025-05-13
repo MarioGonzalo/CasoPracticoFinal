@@ -59,8 +59,15 @@ Link al repositorio: https://github.com/MarioGonzalo/CasoPracticoFinal.git
 - **Red:** CDN local, QoS.
 - **Seguridad:** TLS, DNSSEC, WAF (firewall de aplicaciones).
 
-### Diseño lógico y segmentación 🟥
+### Diseño lógico y segmentación
 
+![Image](https://github.com/user-attachments/assets/b3e38dbf-42e9-4b1b-a3b1-89aba3432091)
+
+Esta captura representa la composición de la red de la ciudad que es un spanning tree con dos switches auxiliares pra más seguridad, y siendo el switch de arriba a la derecha el asignado a seguridad y el de arriba a la izquierda el asignado a transporte, también tiene un firewall para mayor seguridad que se conecta a la zona desmilitarizada y al exterior.
+
+![image](https://github.com/user-attachments/assets/997d4d71-1f89-439e-bb93-ba9c45bef608)
+
+Esta parte est la del edificio gubernamental, tiene varias plantas conectadas a un switch principal con vlans asignadas para mayor privacidad, al igual que el resto de edificios este tiene un firewall con zona desmilitarizada para protegerse de posibles vulnerabilidades.
 
 
 ## 2. Capa Física – Cálculos y Selección de Tecnologías
