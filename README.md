@@ -9,9 +9,9 @@ Link al repositorio: https://github.com/MarioGonzalo/CasoPracticoFinal.git
     - [Integración de Modelos para los Servicios](#integración-de-modelos-para-los-servicios)
   - [Diseño lógico y segmentación](#diseño-lógico-y-segmentación-)
 
-## 1. Diseño y Modelado de la Arquitectura de Comunicación 🟨
+## 1. Diseño y Modelado de la Arquitectura de Comunicación
 
-### Análisis de Modelos 🟩
+### Análisis de Modelos
 
 **Modelo OSI (Open Systems Interconnection)**
 
@@ -36,7 +36,7 @@ Link al repositorio: https://github.com/MarioGonzalo/CasoPracticoFinal.git
 
 ---
 
-### Integración de Modelos para los Servicios🟩
+### Integración de Modelos para los Servicios
 
 #### A. Servicios Gubernamentales
 
@@ -68,11 +68,11 @@ Link al repositorio: https://github.com/MarioGonzalo/CasoPracticoFinal.git
 
 ### Diseño lógico y segmentación 🟥
 
-*Insertar capturas cuando esté el cisco y el drawio y tal *
 
-## 2. Capa Física – Cálculos y Selección de Tecnologías 🟨
 
-### Cálculo de la Capacidad de los Enlaces: 🟥
+## 2. Capa Física – Cálculos y Selección de Tecnologías
+
+### Cálculo de la Capacidad de los Enlaces:
 
 Para calcular la capacidad necesaria en los enlaces cableados e inalámbricos del campus emplearemos la fórmula de Shannon:
 
@@ -91,9 +91,39 @@ Para convertir SNR en dB a forma unitaria emplearemos la fórmula:
 
 $$𝑆𝑁𝑅_{lineal} = 10 𝑙𝑜𝑔_{10}(𝑆𝑁𝑅) = 10^{\frac{SNR}{10}} [dB]$$
 
+Por ejemplo,  para un enlace inalámbrico crítico: B = 300MHz y SNR = 20 dB
+
+### Paso 1: Convertir SNR de dB a escala lineal
+
+Se usa la fórmula:
+
+$ \text{SNR}_{\text{lineal}} = 10^{\frac{SNR_{dB}}{10}} $
+
+$ \text{SNR}_{\text{lineal}} = 10^{\frac{20}{10}} = 10^2 = 100 $
+
+---
+
+### Paso 2: Aplicar la fórmula de Shannon
+
+$ C = 300 \times 10^6 \times \log_2(1 + 100) $
+
+$ C = 300 \times 10^6 \times \log_2(101) $
+
+---
+
+### Paso 3: Calcular logaritmo en base 2
+
+$ \log_2(101) \approx \frac{\log_{10}(101)}{\log_{10}(2)} \approx \frac{2.004}{0.3010} \approx 6.6582 $
+
+---
+
+### Paso 4: Calcular capacidad
+
+$ C = 300 \times 10^6 \times 6.6582 \approx 1.997 \times 10^9 \, \text{bps} $
+
 # Hay que terminar esto
 
-### Selección de Técnicas de Modulación: 🟩
+### Selección de Técnicas de Modulación:
 
 | Modulación  | Bits por Símbolo | Eficiencia Espectral | Robustez ante Interferencias | Complejidad Computacional |
 |-------------|------------------|-----------------------|------------------------------|----------------------------|
@@ -117,13 +147,13 @@ $$𝑆𝑁𝑅_{lineal} = 10 𝑙𝑜𝑔_{10}(𝑆𝑁𝑅) = 10^{\frac{SNR}{10
 - Para los enlaces inalámbricos emplearemos QPSK o 16-QAM en los mejores casos ya que los canales inalámbricos, a lo contrario que los enlaces cableados, tiene más ruido e interferencias por lo que es necesario sacrificar un poco de eficiencia por robustez ante interferencias.
 
 
-## 3. Capa de Red – Direccionamiento, Subneteo y Enrutamiento 🟨
+## 3. Capa de Red – Direccionamiento, Subneteo y Enrutamiento
 
 ### Diseño del Esquema de Direccionamiento IP: 🟥
 
-# Esto para cuando el cisco esté terminado y tal mejor
 
-### Enrutamiento y Rutas Óptimas: 🟩
+
+### Enrutamiento y Rutas Óptimas:
 
 Para emplear el algoritmo de Dijkstra para calcular rutas óptimas entre los diferentes egmentos asumiremos que cada segmento es un nodo con un peso en un grafo ponderado siendo:
 
